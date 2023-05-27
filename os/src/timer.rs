@@ -6,6 +6,21 @@ use riscv::register::time;
 
 const TICKS_PER_SEC: usize = 100;
 const MSEC_PER_SEC: usize = 1000;
+
+
+//add
+pub struct  TimeVal {
+    
+    pub sec:usize,  // 单位：s
+    pub usec:usize, // 单位：ns
+}
+impl TimeVal {
+    pub fn as_bytes(&self) -> &[u8] {
+        let size = core::mem::size_of::<Self>();
+        unsafe { core::slice::from_raw_parts(self as *const _ as usize as *const u8, size) }
+    }
+}
+
 ///get current time
 pub fn get_time() -> usize {
     time::read()
